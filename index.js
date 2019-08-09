@@ -99,6 +99,10 @@ const reducer = combineReducers({
 const store = createStore(reducer, initState)
 const next = store.dispatch
 
+const timeMiddleware = (store) => (next) => (action) => {
+    console.log('time', new Date().toLocaleDateString())
+    next(action)
+}
 const loggerMiddleware = (store) => (next) => (action) => {
     console.log('this state', store.getState())
     console.log('action', action)
@@ -113,10 +117,11 @@ const exceptionMiddleware = (store) => (next) => (action) => {
     }
 }
 
+const time = timeMiddleware(store)
 const logger = loggerMiddleware(store)
 const exception = exceptionMiddleware(store)
 
-store.dispatch = exception(logger(next))
+store.dispatch = exception(time(logger(next)))
 
 store.subscribe({
     key: 'counter',
