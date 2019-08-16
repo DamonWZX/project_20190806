@@ -251,3 +251,15 @@ Git 使用两种主要类型的标签：轻量标签（lightweight）与附注�
     Switched to a new branch 'version2'
 
 当然，如果在这之后又进行了一次提交，version2 分支会因为这个改动向前移动，version2 分支就会和 v2.0.0 标签稍微有些不同，这时就应该当心了。
+
+### $ git checkout -b <branchName>
+新建一个分支并切换到该分支，它是下面两条命令的简写：
+
+    $ git branch <branchName>
+    $ git checkout <branchName>
+
+### $ git branch -d <branchName>
+删除一个分支
+
+### $ git merge <branchName>
+合并所输入的分支到当前分支
