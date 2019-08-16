@@ -79,3 +79,15 @@ git rm 命令后面可以列出文件或者目录的名字，也可以使用 glo
 
 ### $ git mv
 移动文件
+
+### $ git remote add <shortName> <url>
+添加一个新的远程 Git 仓库，同时指定一个你可以轻松引用的简写
+
+### $ git remote show origin
+查看某个远程仓库
+
+### $ git remote rename <oldName> <newName>
+远程仓库的重命名
+
+### $ git remote rm <shortName>
+远程仓库的移除
