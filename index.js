@@ -98,17 +98,19 @@ const reducer = combineReducers({
 })
 const store = createStore(reducer, initState)
 const next = store.dispatch
-
+// 输出当前时间的中间件
 const timeMiddleware = (store) => (next) => (action) => {
     console.log('time', new Date().toLocaleDateString())
     next(action)
 }
+// 输出日志的中间件
 const loggerMiddleware = (store) => (next) => (action) => {
     console.log('this state', store.getState())
     console.log('action', action)
     next(action)
     console.log('next state', store.getState())
 }
+// 输出错误报告的中间件
 const exceptionMiddleware = (store) => (next) => (action) => {
     try {
         next(action)
