@@ -5,15 +5,15 @@
 
 ### $ git clone
 如果你想获得一份已经存在了的 Git 仓库的拷贝，比如说，你想为某个开源项目贡献自己的一份力，这时就要用到 git clone 命令。 如果你对其它的 VCS 系统（比如说 Subversion）很熟悉，请留心一下你所使用的命令是"clone"而不是"checkout"。 这是 Git 区别于其它版本控制系统的一个重要特性，Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 当你执行 git clone 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。 事实上，如果你的服务器的磁盘坏掉了，你通常可以使用任何一个克隆下来的用户端来重建服务器上的仓库（虽然可能会丢失某些服务器端的挂钩设置，但是所有版本的数据仍在，详见 在服务器上搭建 Git ）。
-
 克隆仓库的命令格式是 git clone [url] 。 比如，要克隆 Git 的可链接库 project_20190806，可以用下面的命令：
 
- $ git clone https://github.com/WangZXu/project_20190806.git
+    $ git clone https://github.com/WangZXu/project_20190806.git
+
 这会在当前目录下创建一个名为 “project_20190806” 的目录，并在这个目录下初始化一个 .git 文件夹，从远程仓库拉取下所有数据放入 .git 文件夹，然后从中读取最新版本的文件的拷贝。 如果你进入到这个新建的 project_20190806 文件夹，你会发现所有的项目文件已经在里面了，准备就绪等待后续的开发和使用。 如果你想在克隆远程仓库的时候，自定义本地仓库的名字，你可以使用如下命令：
 
- $ git clone https://github.com/WangZXu/project_20190806.git myproject
-这将执行与上一个命令相同的操作，不过在本地创建的仓库名字变为 myproject。
+    $ git clone https://github.com/WangZXu/project_20190806.git myproject
 
+这将执行与上一个命令相同的操作，不过在本地创建的仓库名字变为 myproject。
 Git 支持多种数据传输协议。 上面的例子使用的是 https:// 协议，不过你也可以使用 git:// 协议或者使用 SSH 传输协议，比如 user@server:path/to/repo.git
 
 ### $ git status / $ git status -s
@@ -26,9 +26,10 @@ git status 命令的输出十分详细，但其用语有些繁琐。 如果你�
 ### 忽略文件
 一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。 来看一个实际的例子：
 
- $ cat .gitignore
- *.[oa]
- *~
+    $ cat .gitignore
+    *.[oa]
+    *~
+
 第一行告诉 Git 忽略所有以 .o 或 .a 结尾的文件。一般这类对象文件和存档文件都是编译过程中出现的。 第二行告诉 Git 忽略所有以波浪符（~）结尾的文件，许多文本编辑软件（比如 Emacs）都用这样的文件名保存副本。 此外，你可能还需要忽略 log，tmp 或者 pid 目录，以及自动生成的文档等等。 要养成一开始就设置好 .gitignore 文件的习惯，以免将来误提交这类无用的文件。
 
 文件 .gitignore 的格式规范如下：
@@ -47,12 +48,14 @@ git status 命令的输出十分详细，但其用语有些繁琐。 如果你�
 ### $ git commit
 提交更新，在提交更新之前，请一定要确认还有什么修改过的或新建的文件还没有 git add 过，否则提交的时候不会记录这些还没暂存起来的变化。 这些修改过的文件只保留在本地磁盘。 所以，每次准备提交前，先用 git status 看下，是不是都已暂存起来了， 然后再运行提交命令。
 另外，你也可以在 commit 命令后添加 -m 选项，将提交信息与命令放在同一行，如下所示：
+
     $ git commit -m "Story 182: Fix benchmarks for speed"
     [master 463dc4f] Story 182: Fix benchmarks for speed
     2 files changed, 2 insertions(+)
     create mode 100644 README
 
 你还可以跳过使用暂存区域，尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤：
+
     $ git commit -a -m 'added new benchmarks'
     [master 83e38c7] added new benchmarks
     1 file changed, 5 insertions(+), 0 deletions(-)
